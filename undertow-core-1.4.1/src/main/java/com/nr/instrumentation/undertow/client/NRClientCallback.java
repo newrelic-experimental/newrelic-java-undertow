@@ -1,0 +1,91 @@
+package com.nr.instrumentation.undertow.client;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.net.URI;
+
+import com.newrelic.agent.bridge.AgentBridge;
+import com.newrelic.api.agent.HttpParameters;
+import com.newrelic.api.agent.NewRelic;
+import com.newrelic.api.agent.Segment;
+import com.newrelic.api.agent.Token;
+import com.newrelic.api.agent.Trace;
+
+import io.undertow.client.ClientCallback;
+import io.undertow.client.ClientExchange;
+import io.undertow.client.ClientRequest;
+import io.undertow.client.ClientResponse;
+
+public class NRClientCallback implements ClientCallback<ClientExchange> {
+
+	
+	private ClientCallback<ClientExchange> delegate = null;
+	private Segment segment = null;
+	private Token token = null;
+	private static boolean isTransformed = false;
+	
+	public NRClientCallback(ClientCallback<ClientExchange> d, Token t, Segment s) {
+		delegate = d;
+		token = t;
+		segment = s;
+		if(!isTransformed) {
+			isTransformed = true;
+			AgentBridge.instrumentation.retransformUninstrumentedClass(getClass());
+		}
+	}
+	
+	@Override
+	@Trace(async=true)
+	public void completed(ClientExchange result) {
+		if(token != null) {
+			token.linkAndExpire();
+			token = null;
+		}
+		ClientResponse response = result.getResponse();
+		ClientRequest request = result.getRequest();
+		SocketAddress socketAddr = result.getConnection().getPeerAddress();
+		String host = "Unknown";
+		int port = -1;
+		
+		if(socketAddr instanceof InetSocketAddress) {
+			InetSocketAddress isocketAddr = (InetSocketAddress)socketAddr;
+			host = isocketAddr.getHostName();
+			port = isocketAddr.getPort();
+		}
+		StringBuffer sb = new StringBuffer(request.getProtocol().toString());
+		sb.append("://");
+		sb.append(host);
+		if(port > 0) {
+			sb.append(':');
+			sb.append(port);
+		}
+		sb.append('/');
+		sb.append(request.getPath());
+		URI uri = URI.create(sb.toString());
+		
+//		HttpParameters params = HttpParameters.library("Undertow").uri(uri).procedure("send").inboundHeaders(new InboundWrapper(response.getResponseHeaders())).build();
+//		if(segment != null) {
+//			segment.reportAsExternal(params);
+//			segment.end();
+//		} else {
+//			NewRelic.getAgent().getTracedMethod().reportAsExternal(params);
+//		}
+		delegate.completed(result);
+	}
+
+	@Override
+	@Trace(async=true)
+	public void failed(IOException e) {
+		NewRelic.noticeError(e);
+		if(token != null) {
+			token.linkAndExpire();
+			token = null;
+		}
+		if(segment != null) {
+			segment.ignore();
+		}
+		delegate.failed(e);
+	}
+
+}
