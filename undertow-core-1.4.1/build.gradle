@@ -8,14 +8,15 @@ dependencies {
 
 
    // New Relic Java Agent dependencies
-   implementation 'com.newrelic.agent.java:newrelic-agent:6.0.0'
-   implementation 'com.newrelic.agent.java:newrelic-api:6.0.0'
+   implementation 'com.newrelic.agent.java:newrelic-agent:6.4.0'
+   implementation 'com.newrelic.agent.java:newrelic-api:6.4.0'
    implementation fileTree(include: ['*.jar'], dir: '../libs')
       
    testImplementation 'junit:junit:4.12'
    testImplementation fileTree(include: ['*.jar'], dir: '../test-lib')
    testImplementation 'junit:junit:4.12'
    testImplementation 'org.apache.httpcomponents:httpclient:4.5.13'
+   testImplementation 'com.googlecode.json-simple:json-simple:1.1.1'
    
 }
 
