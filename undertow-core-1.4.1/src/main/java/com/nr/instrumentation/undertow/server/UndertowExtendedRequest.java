@@ -36,6 +36,7 @@ public class UndertowExtendedRequest extends ExtendedRequest {
 		return null;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Enumeration getParameterNames() {
 		Map<String, Deque<String>> params = exchange.getPathParameters();

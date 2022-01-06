@@ -2,6 +2,7 @@ package io.undertow.client.http;
 
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
+import java.util.HashMap;
 
 import org.xnio.OptionMap;
 import org.xnio.StreamConnection;
@@ -9,10 +10,12 @@ import org.xnio.StreamConnection;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Segment;
 import com.newrelic.api.agent.Trace;
+import com.newrelic.api.agent.TracedMethod;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import com.nr.instrumentation.undertow.client.NRClientCallback;
 import com.nr.instrumentation.undertow.client.OutboundWrapper;
+import com.nr.instrumentation.undertow.client.Utils;
 import com.nr.instrumentation.undertow.stats.UndertowStatsCollector;
 
 import io.undertow.client.ClientCallback;
@@ -45,7 +48,11 @@ class HttpClientConnection {
 	@Trace
 	public void sendRequest(ClientRequest request, ClientCallback<ClientExchange> clientCallback) {
 		OutboundWrapper wrapper = new OutboundWrapper(request);
-		NewRelic.getAgent().getTracedMethod().addOutboundRequestHeaders(wrapper);
+		TracedMethod traced = NewRelic.getAgent().getTracedMethod();
+		traced.addOutboundRequestHeaders(wrapper);
+		HashMap<String, Object> attributes = new HashMap<String, Object>();
+		Utils.addClientRequest(attributes, request);
+		traced.addCustomAttributes(attributes);
 		Segment segment = NewRelic.getAgent().getTransaction().startSegment("HttpClientConnection-sendRequest");
 		
 		NRClientCallback nrCallback = new NRClientCallback(clientCallback, NewRelic.getAgent().getTransaction().getToken(), segment);

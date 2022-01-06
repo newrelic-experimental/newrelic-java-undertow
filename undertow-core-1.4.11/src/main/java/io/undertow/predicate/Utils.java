@@ -10,8 +10,6 @@ import com.nr.instrumentation.undertow.utils.ContainsDetails;
 import com.nr.instrumentation.undertow.utils.RegExDetails;
 import com.nr.instrumentation.undertow.utils.TemplateDetails;
 
-import io.undertow.predicate.Predicate;
-
 public class Utils implements AgentConfigListener {
 
 	private static final int PATHMATCH = 1;
