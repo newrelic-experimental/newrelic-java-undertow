@@ -1,19 +1,13 @@
 package com.nr.instrumentation.undertow;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -25,7 +19,6 @@ import org.junit.runner.RunWith;
 import com.newrelic.agent.introspec.InstrumentationTestConfig;
 import com.newrelic.agent.introspec.InstrumentationTestRunner;
 import com.newrelic.agent.introspec.Introspector;
-import com.newrelic.agent.introspec.TracedMetricData;
 
 import io.undertow.Undertow;
 import io.undertow.attribute.RequestPathAttribute;
@@ -41,9 +34,9 @@ public class HttpTest {
 	private HelloHandler handler = new HelloHandler();
 	private Undertow server = null;
 	private static HttpTest instance = null;
-	private static final String GETHTTP = "WebTransaction/Undertow/hello - GET";
-	private static final String HANDLEREQUEST = "Custom/Undertow/HttpHandler/RoutingHandler/handleRequest";
-	private static final String HELLOHANDLER = "Custom/Undertow/HttpHandler/HelloHandler/handleRequest";
+//	private static final String GETHTTP = "WebTransaction/Undertow/hello - GET";
+//	private static final String HANDLEREQUEST = "Custom/Undertow/HttpHandler/RoutingHandler/handleRequest";
+//	private static final String HELLOHANDLER = "Custom/Undertow/HttpHandler/HelloHandler/handleRequest";
 	
 	@BeforeClass
 	public static void beforeClass() {

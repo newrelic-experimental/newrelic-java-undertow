@@ -3,10 +3,9 @@ package com.nr.instrumentation.undertow.client;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
-import java.net.URI;
+import java.util.HashMap;
 
 import com.newrelic.agent.bridge.AgentBridge;
-import com.newrelic.api.agent.HttpParameters;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Segment;
 import com.newrelic.api.agent.Token;
@@ -15,7 +14,6 @@ import com.newrelic.api.agent.Trace;
 import io.undertow.client.ClientCallback;
 import io.undertow.client.ClientExchange;
 import io.undertow.client.ClientRequest;
-import io.undertow.client.ClientResponse;
 
 public class NRClientCallback implements ClientCallback<ClientExchange> {
 
@@ -38,12 +36,13 @@ public class NRClientCallback implements ClientCallback<ClientExchange> {
 	@Override
 	@Trace(async=true)
 	public void completed(ClientExchange result) {
+		HashMap<String, Object> attributes = new HashMap<String, Object>();
 		if(token != null) {
 			token.linkAndExpire();
 			token = null;
 		}
-		ClientResponse response = result.getResponse();
 		ClientRequest request = result.getRequest();
+		Utils.addClientRequest(attributes, request);
 		SocketAddress socketAddr = result.getConnection().getPeerAddress();
 		String host = "Unknown";
 		int port = -1;
@@ -62,15 +61,6 @@ public class NRClientCallback implements ClientCallback<ClientExchange> {
 		}
 		sb.append('/');
 		sb.append(request.getPath());
-		URI uri = URI.create(sb.toString());
-		
-//		HttpParameters params = HttpParameters.library("Undertow").uri(uri).procedure("send").inboundHeaders(new InboundWrapper(response.getResponseHeaders())).build();
-//		if(segment != null) {
-//			segment.reportAsExternal(params);
-//			segment.end();
-//		} else {
-//			NewRelic.getAgent().getTracedMethod().reportAsExternal(params);
-//		}
 		delegate.completed(result);
 	}
 
