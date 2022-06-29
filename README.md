@@ -52,14 +52,14 @@ Currently not available
 
 The instrumentation can be verified against all versions of the Undertow framework.  You can use this to verify that the instrumentation will work with the version you are using.   If no violations are listed as output then the instrumentation is still valid for all applicable versions.   For details on the verify process see https://github.com/newrelic/newrelic-gradle-verify-instrumentation.   
    
-In order to verify the instrumentation needs to be compiled.
+In order to verify the instrumentation it needs to have the necessary libraries so if you haven't run any gradlew commands then you need to run this command:  
+./gradlew checkForDependencies
+
 
 To verify:   
-1. If the instrumentation has not been compiled run:
-./gradlew compile
-2. To verify all versions of the instrumentation run:
+1. To verify all versions of the instrumentation run:
 ./gradlew verifyInstrumentation
-3. To verify a specific version run:
+2. To verify a specific version run:
 ./gradlew undertow-core-*version*:verifyInstrumentation
 
 We try to keep the instrumentation up to date but if the verify fails for a new version please open an issue on this repo.
