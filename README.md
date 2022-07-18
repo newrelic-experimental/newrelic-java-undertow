@@ -29,7 +29,15 @@ To install:
    
 ## Getting Started
 
-Once installed the instrumentation will track calls to the Undertow framework as Web Transactions
+Once installed the instrumentation will track calls to the Undertow framework as Web Transactions.  
+   
+To verify that the instrumentation has been sucessfully loaded by the New Relic Java Agent, use the Metric Explorer to check to see if a metric of the following form has been created when the application starts up where xxx is one of the version numbers (1.4.1, 1.4.11, 2.0):   
+**Supportability/WeaveInstrumentation/Loaded/com.newrelic.instrumentation.undertow-core-xxx**
+   
+If none of the metrics exist then check for metrics like the following:
+**Supportability/WeaveInstrumentation/Skipped/com.newrelic.instrumentation.undertow-core-xxx**
+   
+If successfully loaded then the transaction names should take the form on the Undertow routes.  Additonally there should be metrics that start with **Java/io.undertow**   
    
 ## Building
 
