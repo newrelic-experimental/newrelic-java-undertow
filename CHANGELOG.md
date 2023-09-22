@@ -1,3 +1,9 @@
+## Version: [v1.1.1](https://github.com/newrelic-experimental/newrelic-java-undertow/releases/tag/v1.1.1) | Created: 2023-09-22
+### Build Upgrades
+- Pdate build.gradle
+- Updated vendor title
+
+
 ## Installation
 
 To install:
