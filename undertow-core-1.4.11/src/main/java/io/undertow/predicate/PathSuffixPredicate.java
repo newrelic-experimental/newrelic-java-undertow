@@ -4,6 +4,7 @@ import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.TransactionNamePriority;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
+import com.nr.instrumentation.undertow.utils.Utils;
 
 import io.undertow.server.HttpServerExchange;
 

@@ -9,7 +9,7 @@ import com.newrelic.api.agent.weaver.Weaver;
 @Weave(type=MatchType.Interface)
 public abstract class HttpHandler {
 
-	@Trace
+	@Trace(dispatcher=true)
 	public void handleRequest(HttpServerExchange_instrumentation exchange) {
 		NewRelic.getAgent().getTracedMethod().setMetricName("Custom","Undertow","HttpHandler",getClass().getSimpleName(),"handleRequest");
 		Weaver.callOriginal();

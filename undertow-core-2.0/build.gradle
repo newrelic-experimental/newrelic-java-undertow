@@ -26,4 +26,5 @@ jar {
 
 verifyInstrumentation {
 	passes 'io.undertow:undertow-core:[2.0.0.Final,)'
+//	passes 'io.undertow:undertow-core:[2.0.9.Final-redhat-1,)'
 }

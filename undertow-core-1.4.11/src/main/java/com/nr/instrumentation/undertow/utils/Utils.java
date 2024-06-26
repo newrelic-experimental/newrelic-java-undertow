@@ -1,4 +1,4 @@
-package io.undertow.predicate;
+package com.nr.instrumentation.undertow.utils;
 
 import com.newrelic.agent.config.AgentConfig;
 import com.newrelic.agent.config.AgentConfigListener;
@@ -6,11 +6,14 @@ import com.newrelic.agent.config.ConfigService;
 import com.newrelic.agent.service.ServiceFactory;
 import com.newrelic.api.agent.Config;
 import com.newrelic.api.agent.NewRelic;
-import com.nr.instrumentation.undertow.utils.ContainsDetails;
-import com.nr.instrumentation.undertow.utils.RegExDetails;
-import com.nr.instrumentation.undertow.utils.TemplateDetails;
 
+import io.undertow.predicate.ContainsPredicate;
+import io.undertow.predicate.PathMatchPredicate;
+import io.undertow.predicate.PathPrefixPredicate;
+import io.undertow.predicate.PathSuffixPredicate;
+import io.undertow.predicate.PathTemplatePredicate;
 import io.undertow.predicate.Predicate;
+import io.undertow.predicate.RegularExpressionPredicate;
 
 public class Utils implements AgentConfigListener {
 

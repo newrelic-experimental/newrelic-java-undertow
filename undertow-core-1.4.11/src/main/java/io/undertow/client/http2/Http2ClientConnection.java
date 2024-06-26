@@ -21,7 +21,7 @@ import io.undertow.protocols.http2.Http2Channel;
 @Weave
 public class Http2ClientConnection {
 	
-	public Http2ClientConnection(Http2Channel http2Channel, boolean initialUpgradeRequest, String defaultHost, ClientStatistics clientStatistics,boolean secure) {
+	public Http2ClientConnection(Http2Channel http2Channel, boolean initialUpgradeRequest, String defaultHost, ClientStatistics clientStatistics, boolean secure) {
 		SocketAddress dest = http2Channel.getPeerAddress();
 		if(dest != null && dest instanceof InetSocketAddress && clientStatistics != null) {
 			InetSocketAddress inetAddr = (InetSocketAddress)dest;
@@ -38,7 +38,7 @@ public class Http2ClientConnection {
 		
 	}
 	
-	public Http2ClientConnection(Http2Channel http2Channel, ClientCallback<ClientExchange> upgradeReadyCallback, ClientRequest clientRequest, String defaultHost, ClientStatistics clientStatistics,boolean secure) {
+	public Http2ClientConnection(Http2Channel http2Channel, ClientCallback<ClientExchange> upgradeReadyCallback, ClientRequest clientRequest, String defaultHost, ClientStatistics clientStatistics, boolean secure) {
 		SocketAddress dest = http2Channel.getPeerAddress();
 		if(dest != null && dest instanceof InetSocketAddress && clientStatistics != null) {
 			InetSocketAddress inetAddr = (InetSocketAddress)dest;

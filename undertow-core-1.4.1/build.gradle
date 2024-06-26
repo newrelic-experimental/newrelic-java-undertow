@@ -29,5 +29,5 @@ jar {
 }
 
 verifyInstrumentation {
-	passes 'io.undertow:undertow-core:[1.4.1.Final,1.4.11.Final)'
+	passes 'io.undertow:undertow-core:[1.4.1.Final,1.4.11.Final]'
 }

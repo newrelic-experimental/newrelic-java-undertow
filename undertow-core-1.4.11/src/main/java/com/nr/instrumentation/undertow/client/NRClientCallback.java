@@ -6,7 +6,6 @@ import java.net.SocketAddress;
 import java.net.URI;
 
 import com.newrelic.agent.bridge.AgentBridge;
-import com.newrelic.api.agent.HttpParameters;
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Segment;
 import com.newrelic.api.agent.Token;

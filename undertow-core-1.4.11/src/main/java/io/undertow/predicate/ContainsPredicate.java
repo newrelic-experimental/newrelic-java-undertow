@@ -6,6 +6,7 @@ import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
 import com.nr.instrumentation.undertow.utils.ContainsDetails;
+import com.nr.instrumentation.undertow.utils.Utils;
 
 import io.undertow.attribute.ExchangeAttribute;
 import io.undertow.server.HttpServerExchange;

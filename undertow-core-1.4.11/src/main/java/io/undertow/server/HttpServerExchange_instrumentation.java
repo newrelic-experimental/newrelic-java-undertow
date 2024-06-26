@@ -4,7 +4,6 @@ import java.util.concurrent.Executor;
 
 import com.newrelic.api.agent.NewRelic;
 import com.newrelic.api.agent.Token;
-import com.newrelic.api.agent.Trace;
 import com.newrelic.api.agent.weaver.NewField;
 import com.newrelic.api.agent.weaver.Weave;
 import com.newrelic.api.agent.weaver.Weaver;
@@ -22,7 +21,7 @@ public abstract class HttpServerExchange_instrumentation {
 		token = NewRelic.getAgent().getTransaction().getToken();
 	}
 	
-	@Trace(dispatcher=true)
+	@SuppressWarnings("unused")
 	private void invokeExchangeCompleteListeners() {
 		Weaver.callOriginal();
 		if(token != null) {
@@ -31,19 +30,11 @@ public abstract class HttpServerExchange_instrumentation {
 		}
 	}
 
-	@Trace(dispatcher=true)
 	 public HttpServerExchange_instrumentation dispatch(Executor executor, Runnable runnable) {
 		 if(!(runnable instanceof NRRunnable)) {
 			 NRRunnable wrapper = new NRRunnable(runnable, NewRelic.getAgent().getTransaction().getToken());
 			 runnable = wrapper;
 		 }
-		 return Weaver.callOriginal();
-	 }
-	 
-	 
-	@Trace(dispatcher=true)
-	 public HttpServerExchange endExchange() {
-		 
 		 return Weaver.callOriginal();
 	 }
 }

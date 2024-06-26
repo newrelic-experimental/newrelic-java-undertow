@@ -129,6 +129,7 @@ public class UndertowStatsCollector implements Runnable {
 			NewRelic.recordMetric("Undertow-Statistics/SessionStatistics/"+deployment+"/AverageSessionAliveTime", stats.getAverageSessionAliveTime());
 			NewRelic.recordMetric("Undertow-Statistics/SessionStatistics/"+deployment+"/CreatedSessionCount", stats.getCreatedSessionCount());
 			NewRelic.recordMetric("Undertow-Statistics/SessionStatistics/"+deployment+"/ExpiredSessionCount", stats.getExpiredSessionCount());
+			NewRelic.recordMetric("Undertow-Statistics/SessionStatistics/"+deployment+"/HighestSessionCount", stats.getHighestSessionCount());
 			NewRelic.recordMetric("Undertow-Statistics/SessionStatistics/"+deployment+"/MaxActiveSessionCount", stats.getMaxActiveSessions());
 			NewRelic.recordMetric("Undertow-Statistics/SessionStatistics/"+deployment+"/MaxAverageSessionAliveTime", stats.getMaxSessionAliveTime());
 			NewRelic.recordMetric("Undertow-Statistics/SessionStatistics/"+deployment+"/RejectedSessions", stats.getRejectedSessions());
