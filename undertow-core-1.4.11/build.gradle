@@ -8,9 +8,9 @@ dependencies {
 
 
    // New Relic Labs Java Agent dependencies
-   implementation 'com.newrelic.agent.java:newrelic-agent:6.4.0'
-   implementation 'com.newrelic.agent.java:newrelic-api:6.4.0'
-   implementation fileTree(include: ['*.jar'], dir: '../libs')
+   implementation 'com.newrelic.agent.java:newrelic-agent:' + project.findProperty('java.agent.version')
+   implementation 'com.newrelic.agent.java:newrelic-api:' + project.findProperty('java.agent.version')
+   implementation 'com.newrelic.agent.java:agent-bridge:' + project.findProperty('java.agent.version')
 
    testImplementation 'junit:junit:4.12'
    testImplementation fileTree(include: ['*.jar'], dir: '../test-lib')
@@ -27,6 +27,6 @@ jar {
 }
 
 verifyInstrumentation {
-	passes 'io.undertow:undertow-core:[1.4.11.Final,)'
+	passesOnly 'io.undertow:undertow-core:[1.4.11.Final,)'
 	excludeRegex '.*.Alpha[0-9]'
 }

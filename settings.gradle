@@ -1,4 +1,4 @@
-rootProject.name = 'java-instrumentation-template'
+rootProject.name = 'undertow-instrumentation'
 include 'undertow-core-2.0'
 include 'undertow-core-1.4.1'
 include 'undertow-core-1.4.11'
